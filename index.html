@@ -1,38 +1,47 @@
-from flask import Flask, request, render_template, redirect
-import datetime
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barbearia Confraria | Agendamento</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="hero">
+        <div class="container">
+            <h1>BARBEARIA CONFRARIA</h1>
+            <p>Onde o estilo encontra a tradição.</p>
+        </div>
+    </header>
 
-app = Flask(__name__)
+    <section class="booking-container">
+        <div class="form-box">
+            <h2>Reserve seu Horário</h2>
+            <form id="agendamentoForm">
+                <div class="input-group">
+                    <label>Seu Nome</label>
+                    <input type="text" id="nome" placeholder="Ex: Daniel Silva" required>
+                </div>
 
-# Simulação de Banco de Dados
-agendamentos = []
+                <div class="input-group">
+                    <label>Serviço</label>
+                    <select id="servico">
+                        <option value="Corte Simples">Corte Simples</option>
+                        <option value="Barba Clássica">Barba Clássica</option>
+                        <option value="Combo (Cabelo e Barba)">Combo Completo</option>
+                    </select>
+                </div>
 
-@app.route('/')
-def home():
-    return render_template('index.html')
+                <div class="input-group">
+                    <label>Data e Hora</label>
+                    <input type="datetime-local" id="dataHora" required>
+                </div>
 
-@app.route('/agendar', methods=['POST'])
-def agendar():
-    # Coleta de dados do formulário
-    nome = request.form.get('nome')
-    whatsapp = request.form.get('whatsapp')
-    servico = request.form.get('servico')
-    data_hora = request.form.get('data_hora')
+                <button type="submit" class="btn-enviar">CONFIRMAR VIA WHATSAPP</button>
+            </form>
+        </div>
+    </section>
 
-    # Cria o registro do agendamento
-    novo_agendamento = {
-        "cliente": nome,
-        "contato": whatsapp,
-        "servico": servico,
-        "horario": data_hora,
-        "status": "pendente"
-    }
-
-    agendamentos.append(novo_agendamento)
-    
-    # Aqui você pode integrar a API do WhatsApp para enviar confirmação
-    print(f"Novo Agendamento: {nome} - {servico} às {data_hora}")
-
-    return "<h2>Agendamento realizado com sucesso! Em breve entraremos em contato.</h2>"
-
-if __name__ == '__main__':
-    app.run(debug=True)
+    <script src="script.js"></script>
+</body>
+</html>
